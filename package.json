@@ -1,0 +1,8 @@
+{
+  "name": "testing-ii",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/spinon187/testing-ii.git",
+  "author": "spinon187 <spinon187@gmail.com>",
+  "license": "MIT"
+}
