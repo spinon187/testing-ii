@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import Display from './components/Display.js';
 import './App.css';
+import Dashboard from './components/Dashboard.js';
+import Scoreboard from './components/Scoreboard.js';
 
 class App extends Component {
     state = {
@@ -20,8 +23,41 @@ class App extends Component {
       else {
         this.setState({
           ...this.state,
-          balls: 0
+          balls: 0,
+          strikes: 0
         })
+      }
+    }
+
+    out = () => {
+      if(this.state.outs < 2){
+        this.setState({
+          ...this.state,
+          balls: 0,
+          strikes: 0,
+          outs: this.state.outs + 1
+        })
+      }
+      else {
+        if(this.state.atBat === 'away'){
+          this.setState({
+            ...this.state,
+            balls: 0,
+            strikes: 0,
+            outs: 0,
+            atBat: 'home'
+          })
+        }
+        else {
+          this.setState({
+            ...this.state,
+            balls: 0,
+            strikes: 0,
+            outs: 0,
+            atBat: 'away',
+            inning: this.state.inning + 1
+          })
+        }
       }
     }
 
@@ -33,38 +69,7 @@ class App extends Component {
         })
       }
       else {
-        this.setState({
-          ...this.state,
-          strikes: 0
-        })
-      }
-    }
-
-    out = () => {
-      if(this.state.outs < 2){
-        this.setState({
-          ...this.state,
-          strikes: this.state.outs + 1
-        })
-      }
-      else {
-        this.setState({
-          ...this.state,
-          outs: 0
-        })
-        if(this.state.atBat === 'away'){
-          this.setState({
-            ...this.state,
-            atBat: 'home'
-          })
-        }
-        else {
-          this.setState({
-            ...this.state,
-            atBat: 'away',
-            inning: this.state.inning + 1
-          })
-        }
+        this.out();
       }
     }
 
@@ -89,25 +94,22 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <div className='scoreboard'>
-       </div>
-       <div className='atBat'>
-       <div className='balls'>
-          <h2>Balls: {this.state.balls}</h2>
-        </div>
-        <div className='strikes'>
-          <h2>Strikes: {this.state.strikes}</h2>
-        </div>
-        <div className='outs'>
-          <h2>Outs: {this.state.outs}</h2>
-        </div>
-       </div>
-       <div className='button-row'>
-        <button onClick={this.ball}>Ball</button>
-        <button onClick={this.strike}>Strike</button>
-        <button onClick={this.foul}>Foul</button>
-        <button onClick={this.hit}>Hit</button>
-       </div>
+        <Scoreboard 
+          inning={this.state.inning}
+          atBat={this.state.atBat}        
+        />
+        <Display
+          balls={this.state.balls}
+          strikes={this.state.strikes}
+          outs={this.state.outs}
+        />
+        <Dashboard 
+          ball={this.ball}
+          strike={this.strike}
+          foul={this.foul}
+          hit={this.hit}
+          out={this.out}
+        />
       </div>
     );
   }

@@ -31,3 +31,25 @@
     transform: rotate(360deg);
   }
 }
+
+.scoreboard {
+  display: flex;
+  margin: auto;
+  width: 70%;
+  justify-content: center;
+}
+
+.score {
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+.inning-num {
+  background-color: black;
+  color: white;
+  border-right: 1px solid white;
+}
+
+.inning-num:last-of-type {
+  border-right: 1px solid black;
+}
